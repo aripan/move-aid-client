@@ -9,7 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const Footer = () => {
   return (
-    <div className="mt-5 bg-dark text-white">
+    <div className="mt-5 bg-dark text-white" id="contact">
       <Container>
         <Row className="pt-4 pb-4">
           <Col>

@@ -3,6 +3,7 @@ import LocationCityIcon from "@material-ui/icons/LocationCity";
 import PublicIcon from "@material-ui/icons/Public";
 import StoreIcon from "@material-ui/icons/Store";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 const HomeService = () => {
   const homeServiceData = [
@@ -49,13 +50,17 @@ const HomeService = () => {
                 <h5>{data.title}</h5>
                 <p className="text-secondary">{data.description}</p>
               </div>
-              <Button variant="outline-primary">Book Now</Button>
+              <LinkContainer to="/serviceDetails">
+                <Button variant="outline-primary">Book Now</Button>
+              </LinkContainer>
             </Col>
           ))}
         </Row>
         <br />
         <Row className="d-flex justify-content-center">
-          <Button>Explore All</Button>
+          <LinkContainer to="/services">
+            <Button>Explore All</Button>
+          </LinkContainer>
         </Row>
       </Container>
     </div>

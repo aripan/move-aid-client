@@ -1,5 +1,7 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { HashLink } from "react-router-hash-link";
 
 const NavbarComponent = () => {
   return (
@@ -8,24 +10,30 @@ const NavbarComponent = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="#home" className="mr-2">
-            Home
-          </Nav.Link>
-          <Nav.Link href="#about" className="mr-2">
-            About Us
-          </Nav.Link>
-          <Nav.Link href="#service" className="mr-2">
-            Services
-          </Nav.Link>
-          <Nav.Link href="#contact" className="mr-2">
-            Contact Us
-          </Nav.Link>
-          <Nav.Link href="#admin" className="mr-2">
-            Admin
-          </Nav.Link>
-          <Nav.Link href="#login" className="mr-2 ">
-            Login
-          </Nav.Link>
+          <LinkContainer to="/home">
+            <Nav.Link className="mr-2">Home</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/about">
+            <Nav.Link className="mr-2">About Us</Nav.Link>
+          </LinkContainer>
+
+          <LinkContainer to="/services">
+            <Nav.Link className="mr-2">Services</Nav.Link>
+          </LinkContainer>
+          <HashLink
+            smooth
+            to="/home#contact"
+            style={{ textDecoration: "none" }}
+          >
+            <Nav.Link className="mr-2">Contact Us</Nav.Link>
+          </HashLink>
+          <LinkContainer to="/admin">
+            <Nav.Link className="mr-2">Admin</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/login">
+            <Nav.Link className="mr-2 ">Login</Nav.Link>
+          </LinkContainer>
+
           <NavDropdown title="Username(Admin)" id="basic-nav-dropdown">
             <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
           </NavDropdown>
