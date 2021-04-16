@@ -1,23 +1,34 @@
 import React from "react";
-import { Button, Jumbotron } from "react-bootstrap";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams,
+} from "react-router-dom";
 import DrawerComponent from "../../Shared/DrawerComponent/DrawerComponent";
+import Book from "../ServiceDetailsOtherComponents/Book/Book";
+import BookingList from "../ServiceDetailsOtherComponents/BookingList/BookingList";
+import ReviewCard from "../ServiceDetailsOtherComponents/ReviewCard/ReviewCard";
 
 const ServiceDetailsPageScreen = () => {
   return (
-    <div>
+    <Router>
       <DrawerComponent>
-        <Jumbotron>
-          <h1>Hello, world!</h1>
-          <p>
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
-          </p>
-          <p>
-            <Button variant="primary">Learn more</Button>
-          </p>
-        </Jumbotron>
+        <Switch>
+          <Route exact path="/serviceDetails">
+            <Book></Book>
+          </Route>
+          <Route exact path="/serviceDetails/bookingList">
+            <BookingList></BookingList>
+          </Route>
+          <Route exact path="/serviceDetails/review">
+            <ReviewCard></ReviewCard>
+          </Route>
+        </Switch>
       </DrawerComponent>
-    </div>
+    </Router>
   );
 };
 
