@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => {
     serviceName: {
       flexGrow: 1,
     },
+
+    goHome: {
+      marginRight: theme.spacing(2),
+    },
   };
 });
 
@@ -72,26 +76,27 @@ const menuItems1 = [
     path: "/serviceDetails/review",
   },
 ];
+
 const menuItems2 = [
   {
     text: "Order List",
     icon: <ShoppingCartOutlinedIcon color="secondary" />,
-    path: "/serviceDetails",
+    path: "/admin",
   },
   {
     text: "Add Service",
     icon: <ListAltOutlinedIcon color="secondary" />,
-    path: "/serviceDetails/bookingList",
+    path: "/admin/addService",
   },
   {
     text: "Make Admin",
     icon: <RateReviewOutlinedIcon color="secondary" />,
-    path: "/serviceDetails/review",
+    path: "/admin/makeAdmin",
   },
   {
     text: "Manage Services",
     icon: <RateReviewOutlinedIcon color="secondary" />,
-    path: "/serviceDetails/review",
+    path: "/admin/manageServices",
   },
 ];
 
@@ -100,6 +105,12 @@ const DrawerComponent = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
+
+  useEffect(() => {
+    if (location.pathname.startsWith("/admin")) {
+      setMenuValue(true);
+    }
+  }, [location.pathname]);
   let menuItems = menuValue ? menuItems2 : menuItems1;
   return (
     <div className={classes.root}>
@@ -139,6 +150,7 @@ const DrawerComponent = ({ children }) => {
             </ListItem>
           ))}
         </List>
+        <div></div>
       </Drawer>
       <div className={classes.toolbar}>
         <div className={classes.page}></div>

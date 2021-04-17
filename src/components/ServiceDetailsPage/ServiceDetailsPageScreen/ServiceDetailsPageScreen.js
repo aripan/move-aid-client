@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DrawerComponent from "../../Shared/DrawerComponent/DrawerComponent";
 import Book from "../ServiceDetailsOtherComponents/Book/Book";
 import BookingList from "../ServiceDetailsOtherComponents/BookingList/BookingList";

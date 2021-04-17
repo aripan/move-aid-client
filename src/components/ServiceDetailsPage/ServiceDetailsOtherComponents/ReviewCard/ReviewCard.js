@@ -27,6 +27,10 @@ const ReviewCard = () => {
             <option>5</option>
           </Form.Control>
         </Form.Group>
+        <Form.Group>
+          <Form.Label>Comment</Form.Label>
+          <Form.Control as="textarea" rows={3} />
+        </Form.Group>
         <Button variant="primary" type="submit">
           Submit
         </Button>
