@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -12,6 +12,7 @@ import RateReviewOutlinedIcon from "@material-ui/icons/RateReviewOutlined";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { useHistory, useLocation } from "react-router";
+import { moveAidContext } from "../../../App";
 
 const drawerWidth = "25%";
 const useStyles = makeStyles((theme) => {
@@ -101,24 +102,31 @@ const menuItems2 = [
 ];
 
 const DrawerComponent = ({ children }) => {
-  const [menuValue, setMenuValue] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
+  const [welcomeName, setWelcomeName] = useState("Book");
+  const [adminWelcomeName, setAdminWelcomeName] = useState("Order List");
+  const [menuItems, setMenuItems] = useState(menuItems1);
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
 
   useEffect(() => {
-    if (location.pathname.startsWith("/admin")) {
-      setMenuValue(true);
+    if (loggedInUser.email && location.pathname.startsWith("/admin")) {
+      setMenuItems(menuItems2);
+      // setWelcomeName("Order List");
     }
-  }, [location.pathname]);
-  let menuItems = menuValue ? menuItems2 : menuItems1;
+  }, [loggedInUser.email, location.pathname]);
+  // let menuItems = menuValue ? menuItems2 : menuItems1;
   return (
     <div className={classes.root}>
       {/* app bar */}
       <AppBar className={classes.appBar} elevation={0}>
         <Toolbar>
-          <Typography className={classes.serviceName}>Welcome</Typography>
-          <Typography>Username</Typography>
+          <Typography className={classes.serviceName}>
+            {loggedInUser ? adminWelcomeName : welcomeName}
+          </Typography>
+
+          <Typography>{loggedInUser.name}</Typography>
         </Toolbar>
       </AppBar>
       {/* side bar */}
@@ -140,6 +148,8 @@ const DrawerComponent = ({ children }) => {
               key={item.text}
               onClick={() => {
                 history.push(item.path);
+                setWelcomeName(item.text);
+                setAdminWelcomeName(item.text);
               }}
               className={
                 location.pathname === item.path ? classes.active : null
