@@ -26,12 +26,11 @@ const HomeFAQ = () => {
         <Row>
           <Col>
             <h3>
-              Welcome to <br /> OUR SERVICES
+              Frequently Asked <br /> Questions
             </h3>
             <p>
-              With professional movers, we provide the following services at
-              affordable rates,
-              <br /> to suit your pocket and sooth your mind
+              We will be happy to answer any of your questions.
+              <br /> Reach to us to know more in details
             </p>
           </Col>
         </Row>
@@ -41,15 +40,16 @@ const HomeFAQ = () => {
               sm={12}
               md={3}
               key={index}
-              style={{ height: "300px" }}
+              style={{ height: "250px" }}
               className="border border-primary m-auto"
             >
               <QuestionAnswerRoundedIcon
                 className="border border-success rounded-circle"
                 style={{
-                  fontSize: "50px",
-                  transform: "translateY(-20px)",
+                  fontSize: "70px",
+                  transform: "translateY(-30px)",
                   color: "Green",
+                  padding: "5px",
                 }}
               />
               <div>

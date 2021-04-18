@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
+import { HashLink } from "react-router-hash-link";
 import headerImg from "../../../../images/header-img.jpg";
 
 const HeaderMain = () => {
@@ -26,7 +27,14 @@ const HeaderMain = () => {
               Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
               dolor sit amet.
             </p>
-            <Button variant="outline-primary">Get In Touch</Button>
+
+            <HashLink
+              smooth
+              to="/home#contact"
+              style={{ textDecoration: "none" }}
+            >
+              <Button variant="outline-primary">Get In Touch</Button>
+            </HashLink>
           </div>
         </Col>
       </Row>

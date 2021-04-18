@@ -1,36 +1,23 @@
-import React from "react";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import PublicIcon from "@material-ui/icons/Public";
-import StoreIcon from "@material-ui/icons/Store";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const HomeService = () => {
-  const homeServiceData = [
-    {
-      icon: LocationCityIcon,
-      title: "Local Moving",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
-    },
-    {
-      icon: PublicIcon,
-      title: "Long Distance Moving",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
-    },
-    {
-      icon: StoreIcon,
-      title: "Storage Unit",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
-    },
-  ];
+  const localURL = "http://localhost:5000";
+  const [serviceOptions, setServiceOptions] = useState([]);
+
+  useEffect(() => {
+    fetch(`${localURL}/services`)
+      .then((res) => res.json())
+      .then((data) => setServiceOptions(data));
+  }, [localURL]);
+
+  console.log(serviceOptions);
 
   return (
     <div className="text-center mt-5 ">
       <Container>
-        <Row>
+        <Row className="mb-5">
           <Col>
             <h3>
               Welcome to <br /> OUR SERVICES
@@ -42,25 +29,21 @@ const HomeService = () => {
             </p>
           </Col>
         </Row>
-        <Row className="mt-5">
-          {homeServiceData.map((data, index) => (
-            <Col sm={12} md={4} key={index} style={{ height: "300px" }}>
-              <data.icon style={{ fontSize: "40px" }} />
-              <div className="m-4">
-                <h5>{data.title}</h5>
-                <p className="text-secondary">{data.description}</p>
-              </div>
-              <LinkContainer to="/serviceDetails">
-                <Button variant="outline-primary">Book Now</Button>
-              </LinkContainer>
+        <Row className="m-auto">
+          {serviceOptions.map((service, index) => (
+            <Col sm={12} md={4} key={index}>
+              <Card style={{ width: "14rem" }}>
+                <Card.Img src={service.image} style={{ height: "200px" }} />
+                <Card.Body>
+                  <Card.Title>{service.serviceName}</Card.Title>
+                  <Card.Text>{service.description}</Card.Text>
+                  <LinkContainer to="/serviceDetails">
+                    <Button variant="outline-primary">Book Now</Button>
+                  </LinkContainer>
+                </Card.Body>
+              </Card>
             </Col>
           ))}
-        </Row>
-        <br />
-        <Row className="d-flex justify-content-center">
-          <LinkContainer to="/services">
-            <Button>Explore All</Button>
-          </LinkContainer>
         </Row>
       </Container>
     </div>

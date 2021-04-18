@@ -1,51 +1,89 @@
-import React from "react";
-import { Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Alert, Image, Table } from "react-bootstrap";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
+import EditService from "../EditService/EditService";
 
 const ManageServices = () => {
-  const serviceData = [
-    {
-      id: 1,
-      title: "Local Moving",
-      price: 100,
-    },
-    {
-      id: 2,
-      title: "Long Distance Moving",
-      price: 100,
-    },
-    {
-      id: 3,
-      title: "Storage Unit",
-      price: 100,
-    },
-  ];
+  const localURL = "http://localhost:5000";
+  const [serviceOptions, setServiceOptions] = useState([]);
+  const [editableService, setEditableService] = useState({});
+
+  useEffect(() => {
+    fetch(`${localURL}/services`)
+      .then((res) => res.json())
+      .then((data) => setServiceOptions(data));
+  }, [localURL, setServiceOptions]);
+
+  const handleEditOption = (id) => {
+    const findServiceToEdit = serviceOptions.find((pd) => pd._id === id);
+    setEditableService(findServiceToEdit);
+  };
+
+  const handleDeleteOption = (id) => {
+    const deleteURL = `${localURL}/deleteService/${id}`;
+    fetch(deleteURL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          const filteredServices = serviceOptions.filter(
+            (service) => service._id !== id
+          );
+          setServiceOptions(filteredServices);
+        }
+      });
+  };
 
   return (
     <div className="px-4 m-5">
-      <Table striped bordered hover>
+      {editableService.serviceName ? (
+        <EditService editableService={editableService}></EditService>
+      ) : (
+        <Alert variant="danger" className="text-center">
+          <h4>Manage Services</h4>
+        </Alert>
+      )}
+      <Table striped bordered hover className="mt-5">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Image</th>
             <th>Name</th>
-            <th>Price</th>
+            <th>description</th>
+            <th>service charge</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {serviceData.map((data) => (
+          {serviceOptions.map((service) => (
             <tr>
-              <td>{data.id}</td>
-              <td>{data.title}</td>
-              <td>${data.price}</td>
+              <td>
+                <Image
+                  src={service.image}
+                  style={{ width: "50px", height: "50px" }}
+                />
+              </td>
+              <td>{service.serviceName}</td>
+              <td>{service.description}</td>
+              <td>${service.serviceCharge}</td>
               <td>
                 <EditOutlinedIcon
+                  onClick={() => {
+                    handleEditOption(service._id);
+                  }}
                   style={{ cursor: "pointer" }}
                   color="primary"
                 />
-
+                <br />
+                <br />
                 <DeleteForeverOutlinedIcon
+                  onClick={() => {
+                    handleDeleteOption(service._id);
+                  }}
                   style={{ cursor: "pointer" }}
                   color="secondary"
                 />

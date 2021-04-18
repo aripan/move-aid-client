@@ -28,9 +28,6 @@ const NavbarComponent = () => {
             <Nav.Link className="mr-2">About Us</Nav.Link>
           </LinkContainer>
 
-          <LinkContainer to="/services">
-            <Nav.Link className="mr-2">Services</Nav.Link>
-          </LinkContainer>
           <HashLink
             smooth
             to="/home#contact"

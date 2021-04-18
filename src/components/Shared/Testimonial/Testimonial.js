@@ -1,34 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import customer1 from "../../../images/customer1.png";
-import customer2 from "../../../images/customer2.png";
-import customer3 from "../../../images/customer3.png";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 const Testimonial = () => {
-  const testimonialData = [
-    {
-      image: customer1,
-      name: "John Deo",
-      comment:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
-    },
-    {
-      image: customer2,
-      name: "Winson Herry",
-      comment:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
-    },
-    {
-      image: customer3,
-      name: "Jane Deo",
-      comment:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
-    },
-  ];
+  const localURL = "http://localhost:5000";
+  const [allReviews, setAllReviews] = useState([]);
+
+  useEffect(() => {
+    fetch(`${localURL}/reviews`)
+      .then((res) => res.json())
+      .then((data) => setAllReviews(data));
+  }, [localURL]);
 
   return (
-    <div>
-      <Container className="mt-5" style={{ border: "1px solid red" }}>
+    <div className="mt-5">
+      <Container className="m-auto">
         <Row>
           <div className="d-flex justify-content-between">
             <div>
@@ -39,23 +25,41 @@ const Testimonial = () => {
             </div>
           </div>
         </Row>
-        <Row>
-          {testimonialData.map((data, index) => (
+        <Row className="gx-5">
+          {allReviews.map((review, index) => (
             <Col sm={12} md={4} key={index}>
-              <Row className="d-flex justify-content-center align-items-center">
-                <Col>
-                  <Image src={data.image} style={{ width: "100px" }} />
-                </Col>
-                <Col>
-                  <Row>
-                    <h5>{data.name}</h5>
-                  </Row>
-                  <Row>5 star</Row>
-                </Col>
-              </Row>
-              <Row>
-                <p>{data.comment}</p>
-              </Row>
+              <div
+                className="p-3 border bg-light shadow rounded"
+                style={{ height: "300px" }}
+              >
+                <Row className="d-flex justify-content-center align-items-center">
+                  <Col>
+                    <Image
+                      src={review.image}
+                      style={{ width: "100px" }}
+                      className="p-1"
+                    />
+                  </Col>
+                  <Col>
+                    <Row>
+                      <h4>{review.name}</h4>
+                      <h6>Service:{review.serviceName}</h6>
+                    </Row>
+                    <Row>{review.rate}</Row>
+
+                    {Array(review.rate)
+                      .fill()
+                      .map((_, i) => (
+                        <span>
+                          <StarBorderIcon />
+                        </span>
+                      ))}
+                  </Col>
+                </Row>
+                <Row className="mt-4 p-2 text-justify">
+                  <p>{review.description}</p>
+                </Row>
+              </div>
             </Col>
           ))}
         </Row>

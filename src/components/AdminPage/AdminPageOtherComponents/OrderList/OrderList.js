@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Alert, Table } from "react-bootstrap";
 import Select from "react-select";
 
 const OrderList2 = () => {
@@ -49,6 +49,9 @@ const OrderList2 = () => {
 
   return (
     <div className="px-4 m-5">
+      <Alert variant="info" className="text-center">
+        <h5>Order List</h5>
+      </Alert>
       <Table striped bordered hover>
         <thead>
           <tr>
