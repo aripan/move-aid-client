@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
 
 const ReviewCard = () => {
@@ -45,72 +45,85 @@ const ReviewCard = () => {
   };
 
   return (
-    <Container className="px-5 m-5">
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label>Your Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Image (Optional)</Form.Label>
+    <div>
+      <Container className="m-5 border-3 shadow p-5">
+        <Alert variant="info" className="text-center">
+          <h5>Review</h5>
+        </Alert>
 
-          <Form.Control
-            type="file"
-            placeholder="Enter image"
-            onChange={handleImageUpload}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Service you have used</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Service name"
-            value={serviceName}
-            onChange={(e) => setServiceName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>How would you like to rate it?</Form.Label>
-          <Form.Control
-            as="select"
-            value={rate}
-            onChange={(e) => setRate(e.target.value)}
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Comment</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </Container>
+        <Form onSubmit={submitHandler}>
+          <Row>
+            <Col>
+              {" "}
+              <Form.Group>
+                <Form.Label>Your Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Service you have used</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Service name"
+                  value={serviceName}
+                  onChange={(e) => setServiceName(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Image (Optional)</Form.Label>
+
+                <Form.Control
+                  type="file"
+                  placeholder="Enter image"
+                  onChange={handleImageUpload}
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>How would you like to rate it?</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={rate}
+                  onChange={(e) => setRate(e.target.value)}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Comment</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" className="mt-5">
+                Submit
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </Container>
+    </div>
   );
 };
 

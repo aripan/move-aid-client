@@ -28,13 +28,17 @@ const NavbarComponent = () => {
             <Nav.Link className="mr-2">About Us</Nav.Link>
           </LinkContainer>
 
-          <HashLink
+          {/* <HashLink
             smooth
             to="/home#contact"
             style={{ textDecoration: "none" }}
           >
             <Nav.Link className="mr-2">Contact Us</Nav.Link>
-          </HashLink>
+          </HashLink> */}
+
+          <LinkContainer to="/serviceDetails">
+            <Nav.Link className="mr-2">Dashboard</Nav.Link>
+          </LinkContainer>
           <LinkContainer to="/admin">
             <Nav.Link className="mr-2">Admin</Nav.Link>
           </LinkContainer>

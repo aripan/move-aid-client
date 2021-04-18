@@ -12,7 +12,9 @@ const HomeService = () => {
       .then((data) => setServiceOptions(data));
   }, [localURL]);
 
-  console.log(serviceOptions);
+  const handleBookNow = (id) => {
+    sessionStorage.setItem("serviceId", id);
+  };
 
   return (
     <div className="text-center mt-5 ">
@@ -36,9 +38,18 @@ const HomeService = () => {
                 <Card.Img src={service.image} style={{ height: "200px" }} />
                 <Card.Body>
                   <Card.Title>{service.serviceName}</Card.Title>
-                  <Card.Text>{service.description}</Card.Text>
+                  <Card.Text style={{ color: "gray", fontStyle: "italic" }}>
+                    {service.description}
+                  </Card.Text>
                   <LinkContainer to="/serviceDetails">
-                    <Button variant="outline-primary">Book Now</Button>
+                    <Button
+                      variant="outline-primary"
+                      onClick={() => {
+                        handleBookNow(service._id);
+                      }}
+                    >
+                      Book Now
+                    </Button>
                   </LinkContainer>
                 </Card.Body>
               </Card>

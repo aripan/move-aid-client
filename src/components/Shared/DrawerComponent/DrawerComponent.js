@@ -117,8 +117,6 @@ const DrawerComponent = ({ children, backToHome, setBackToHome }) => {
     }
   }, [loggedInUser.email, location.pathname]);
 
-  console.log(backToHome);
-
   return (
     <div className={classes.root}>
       <Drawer

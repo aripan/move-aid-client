@@ -28,9 +28,9 @@ function App() {
           <Route path="/about">
             <AboutScreen></AboutScreen>
           </Route>
-          <Route path="/services">
+          {/* <Route path="/services">
             <ServiceScreen></ServiceScreen>
-          </Route>
+          </Route> */}
           {/* <PrivateRoute path="/serviceDetails">
             <ServiceDetailsPageScreen></ServiceDetailsPageScreen>
           </PrivateRoute>
