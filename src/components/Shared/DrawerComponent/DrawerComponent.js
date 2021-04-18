@@ -9,8 +9,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import RateReviewOutlinedIcon from "@material-ui/icons/RateReviewOutlined";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+// import AppBar from "@material-ui/core/AppBar";
+// import Toolbar from "@material-ui/core/Toolbar";
 import { useHistory, useLocation } from "react-router";
 import { moveAidContext } from "../../../App";
 
@@ -42,21 +42,21 @@ const useStyles = makeStyles((theme) => {
       padding: theme.spacing(2),
     },
 
-    appBar: {
-      width: `calc(100% - ${drawerWidth})`,
-    },
+    // appBar: {
+    //   width: `calc(100% - ${drawerWidth})`,
+    // },
 
-    toolbar: {
-      toolbar: theme.mixins.toolbar,
-    },
+    // toolbar: {
+    //   toolbar: theme.mixins.toolbar,
+    // },
 
-    serviceName: {
-      flexGrow: 1,
-    },
+    // serviceName: {
+    //   flexGrow: 1,
+    // },
 
-    goHome: {
-      marginRight: theme.spacing(2),
-    },
+    // goHome: {
+    //   marginRight: theme.spacing(2),
+    // },
   };
 });
 
@@ -101,35 +101,26 @@ const menuItems2 = [
   },
 ];
 
-const DrawerComponent = ({ children }) => {
+const DrawerComponent = ({ children, backToHome, setBackToHome }) => {
   const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
-  const [welcomeName, setWelcomeName] = useState("Book");
-  const [adminWelcomeName, setAdminWelcomeName] = useState("Order List");
   const [menuItems, setMenuItems] = useState(menuItems1);
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
 
   useEffect(() => {
-    if (loggedInUser.email && location.pathname.startsWith("/admin")) {
+    if (
+      // loggedInUser.email &&
+      location.pathname.startsWith("/admin")
+    ) {
       setMenuItems(menuItems2);
-      // setWelcomeName("Order List");
     }
   }, [loggedInUser.email, location.pathname]);
-  // let menuItems = menuValue ? menuItems2 : menuItems1;
+
+  console.log(backToHome);
+
   return (
     <div className={classes.root}>
-      {/* app bar */}
-      <AppBar className={classes.appBar} elevation={0}>
-        <Toolbar>
-          <Typography className={classes.serviceName}>
-            {loggedInUser ? adminWelcomeName : welcomeName}
-          </Typography>
-
-          <Typography>{loggedInUser.name}</Typography>
-        </Toolbar>
-      </AppBar>
-      {/* side bar */}
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -148,8 +139,6 @@ const DrawerComponent = ({ children }) => {
               key={item.text}
               onClick={() => {
                 history.push(item.path);
-                setWelcomeName(item.text);
-                setAdminWelcomeName(item.text);
               }}
               className={
                 location.pathname === item.path ? classes.active : null
@@ -160,12 +149,8 @@ const DrawerComponent = ({ children }) => {
             </ListItem>
           ))}
         </List>
-        <div></div>
       </Drawer>
-      <div className={classes.toolbar}>
-        <div className={classes.page}></div>
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 };

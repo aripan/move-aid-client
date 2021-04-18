@@ -1,121 +1,80 @@
-import React, { useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { IconButton, List, ListItem, ListItemText } from "@material-ui/core";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import React from "react";
+import { Table } from "react-bootstrap";
+import Select from "react-select";
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
+const OrderList2 = () => {
+  const orderListData = [
+    {
+      name: "Sufi Ahmed Hamim",
+      email: "sufi@gmail.com",
+      service: "Local Moving",
+      payment: "Credit Card",
+      value: "pending",
     },
-  },
-}))(TableRow);
+    {
+      name: "Sufi Ahmed Hamim",
+      email: "sufi@gmail.com",
+      service: "Local Moving",
+      payment: "Credit Card",
+      value: "done",
+    },
+    {
+      name: "Sufi Ahmed Hamim",
+      email: "sufi@gmail.com",
+      service: "Local Moving",
+      payment: "Credit Card",
+      value: "on going",
+    },
+    {
+      name: "Sufi Ahmed Hamim",
+      email: "sufi@gmail.com",
+      service: "Local Moving",
+      payment: "Credit Card",
+      value: "pending",
+    },
+    {
+      name: "Sufi Ahmed Hamim",
+      email: "sufi@gmail.com",
+      service: "Local Moving",
+      payment: "Credit Card",
+      value: "done",
+    },
+  ];
 
-function createData(name, emailId, service, payWith, status) {
-  return { name, emailId, service, payWith, status };
-}
+  const options = [
+    { value: "pending", label: "Pending" },
+    { value: "done", label: "Done" },
+    { value: "on going", label: "On going" },
+  ];
 
-const rows = [
-  createData(
-    "Sufi Ahmed Hamim",
-    "sufi@gmail.com",
-    "Local Moving",
-    "Credit Card",
-    "Pending"
-  ),
-  createData(
-    "Sufi Ahmed Hamim",
-    "sufi@gmail.com",
-    "Long Distance Moving",
-    "Credit Card",
-    "Done"
-  ),
-  createData(
-    "Sufi Ahmed Hamim",
-    "sufi@gmail.com",
-    "Storage Unit",
-    "Credit Card",
-    "On going"
-  ),
-];
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: "50%",
-  },
-});
-
-const OrderList = () => {
-  const [open, setOpen] = useState(false);
-  const classes = useStyles();
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="center">Email ID</StyledTableCell>
-            <StyledTableCell align="center">Service</StyledTableCell>
-            <StyledTableCell align="center">Pay With</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="center">{row.emailId}</StyledTableCell>
-              <StyledTableCell align="center">{row.service}</StyledTableCell>
-              <StyledTableCell align="center">{row.payWith}</StyledTableCell>
-              <StyledTableCell align="center">
-                {row.status}{" "}
-                <IconButton
-                  aria-label="expand row"
-                  size="small"
-                  onClick={() => setOpen(!open)}
-                >
-                  {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                  {/* {open ? (
-                    <List>
-                      <ListItem>
-                        <ListItemText primary="pending" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText primary="pending" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText primary="pending" />
-                      </ListItem>
-                    </List>
-                  ) : null} */}
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
+    <div className="px-4 m-5">
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email ID</th>
+            <th>Service</th>
+            <th>Pay With</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orderListData.map((data, index) => (
+            <tr>
+              <td>{data.name}</td>
+              <td>{data.email}</td>
+              <td>{data.service}</td>
+              <td>{data.payment}</td>
+              <td style={{ width: "200px" }}>
+                <Select defaultValue={options[0]} options={options} />
+              </td>
+            </tr>
           ))}
-        </TableBody>
+        </tbody>
       </Table>
-    </TableContainer>
+    </div>
   );
 };
 
-export default OrderList;
+export default OrderList2;

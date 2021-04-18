@@ -17,6 +17,7 @@ function App() {
     success: "",
     error: "",
   });
+
   return (
     <moveAidContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <Router>
@@ -30,12 +31,18 @@ function App() {
           <Route path="/services">
             <ServiceScreen></ServiceScreen>
           </Route>
-          <PrivateRoute path="/serviceDetails">
+          {/* <PrivateRoute path="/serviceDetails">
             <ServiceDetailsPageScreen></ServiceDetailsPageScreen>
           </PrivateRoute>
           <PrivateRoute path="/admin">
             <AdminScreen></AdminScreen>
-          </PrivateRoute>
+          </PrivateRoute> */}
+          <Route path="/serviceDetails">
+            <ServiceDetailsPageScreen></ServiceDetailsPageScreen>
+          </Route>
+          <Route path="/admin">
+            <AdminScreen></AdminScreen>
+          </Route>
 
           <Route path="/login">
             <LoginScreen></LoginScreen>
