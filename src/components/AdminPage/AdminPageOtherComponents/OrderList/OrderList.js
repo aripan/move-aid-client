@@ -1,50 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Table } from "react-bootstrap";
 import Select from "react-select";
 
-const OrderList2 = () => {
-  const orderListData = [
-    {
-      name: "Sufi Ahmed Hamim",
-      email: "sufi@gmail.com",
-      service: "Local Moving",
-      payment: 10,
-      value: "pending",
-    },
-    {
-      name: "Sufi Ahmed Hamim",
-      email: "sufi@gmail.com",
-      service: "Local Moving",
-      payment: 10,
-      value: "done",
-    },
-    {
-      name: "Sufi Ahmed Hamim",
-      email: "sufi@gmail.com",
-      service: "Local Moving",
-      payment: 10,
-      value: "on going",
-    },
-    {
-      name: "Sufi Ahmed Hamim",
-      email: "sufi@gmail.com",
-      service: "Local Moving",
-      payment: 10,
-      value: "pending",
-    },
-    {
-      name: "Sufi Ahmed Hamim",
-      email: "sufi@gmail.com",
-      service: "Local Moving",
-      payment: 10,
-      value: "done",
-    },
-  ];
+const OrderList = () => {
+  const localURL = "http://localhost:5000";
+  const [bookingData, setBookingData] = useState([]);
+
+  useEffect(() => {
+    fetch(`${localURL}/bookings`)
+      .then((res) => res.json())
+      .then((data) => setBookingData(data));
+  }, []);
+
+  const handleChange = (e, id) => {
+    const newStatus = { status: e.value };
+
+    console.log(newStatus, id);
+
+    fetch(`${localURL}/updateBookings/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newStatus),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   const options = [
-    { value: "pending", label: "Pending" },
-    { value: "done", label: "Done" },
-    { value: "on going", label: "On going" },
+    { value: "pending", label: "pending" },
+    { value: "done", label: "done" },
+    { value: "on going", label: "on going" },
   ];
 
   return (
@@ -63,14 +52,20 @@ const OrderList2 = () => {
           </tr>
         </thead>
         <tbody>
-          {orderListData.map((data, index) => (
+          {bookingData.map((booking, index) => (
             <tr>
-              <td>{data.name}</td>
-              <td>{data.email}</td>
-              <td>{data.service}</td>
-              <td>$ {data.payment}</td>
+              <td>{booking.name}</td>
+              <td>{booking.email}</td>
+              <td>{booking.serviceName}</td>
+              <td>$ {booking.serviceCharge}</td>
               <td style={{ width: "200px" }}>
-                <Select defaultValue={options[0]} options={options} />
+                {booking.status}
+                <Select
+                  options={options}
+                  onChange={(e) => {
+                    handleChange(e, booking._id);
+                  }}
+                />
               </td>
             </tr>
           ))}
@@ -80,4 +75,4 @@ const OrderList2 = () => {
   );
 };
 
-export default OrderList2;
+export default OrderList;

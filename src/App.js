@@ -17,9 +17,15 @@ function App() {
     success: "",
     error: "",
   });
+  const [updatedStatus, setUpdatedStatus] = useState("pending");
+
+  const value = {
+    loggedInUser,
+    setLoggedInUser,
+  };
 
   return (
-    <moveAidContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <moveAidContext.Provider value={value}>
       <Router>
         <Switch>
           <Route path="/home">

@@ -18,6 +18,10 @@ const ManageServices = () => {
   const handleEditOption = (id) => {
     const findServiceToEdit = serviceOptions.find((pd) => pd._id === id);
     setEditableService(findServiceToEdit);
+
+    fetch(`${localURL}/services`)
+      .then((res) => res.json())
+      .then((data) => setServiceOptions(data));
   };
 
   const handleDeleteOption = (id) => {

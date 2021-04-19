@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
 import { moveAidContext } from "../../../App";
@@ -6,7 +6,8 @@ import NavbarComponent from "../../Shared/Navbar/NavbarComponent";
 import { signInWithGoogle } from "../LoginPageOtherComponents/LoginManager/LoginManager";
 
 const LoginScreen = () => {
-  const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
+  const localURL = "http://localhost:5000";
+  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
   let history = useHistory();
   let location = useLocation();
 
@@ -15,10 +16,27 @@ const LoginScreen = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle().then((res) => {
       setLoggedInUser(res);
+
       history.replace(from);
     });
   };
-  console.log(loggedInUser);
+
+  useEffect(() => {
+    if (loggedInUser.email) {
+      const newUser = {
+        ...loggedInUser,
+        admin: false,
+      };
+
+      fetch(`${localURL}/addNewUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+    }
+  }, [loggedInUser]);
 
   return (
     <div>

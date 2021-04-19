@@ -5,7 +5,7 @@ import { moveAidContext } from "../../../../App";
 
 const Book = () => {
   const localURL = "http://localhost:5000";
-  const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
+  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
 
   useEffect(() => {
     const serviceId = sessionStorage.getItem("serviceId");
@@ -21,12 +21,6 @@ const Book = () => {
   const [serviceName, setServiceName] = useState("");
   const [weight, setWeight] = useState(1);
   const [serviceCharge, setServiceCharge] = useState();
-
-  // const [serviceName, setServiceName] = useState(serviceOption.serviceName);
-  // const [weight, setWeight] = useState(1);
-  // const [serviceCharge, setServiceCharge] = useState(
-  //   serviceOption.serviceCharge
-  // );
 
   const submitHandler = (e) => {
     e.preventDefault();

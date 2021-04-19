@@ -42,9 +42,13 @@ const EditService = ({ editableService }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert("Service edited");
+        if (data) {
+          alert("Service edited");
+        }
       });
   };
+
+  console.log(editableService);
   return (
     <Container style={{ maxWidth: "40rem" }} className="mt-3">
       <Alert variant="danger" className="text-center">

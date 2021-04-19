@@ -6,7 +6,7 @@ import { moveAidContext } from "../../../App";
 import { logout } from "../../LoginPage/LoginPageOtherComponents/LoginManager/LoginManager";
 
 const NavbarComponent = () => {
-  const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
+  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
   const [adminValue, setAdminValue] = useState(false);
 
   const handleLogout = () => {

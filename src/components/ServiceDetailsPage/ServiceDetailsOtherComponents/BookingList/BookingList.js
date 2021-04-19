@@ -1,27 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Alert, Table } from "react-bootstrap";
 
 const BookingList = () => {
-  const serviceData = [
-    {
-      serviceName: "Local Moving",
-      serviceCharge: 10,
-      paidWith: "Credit Card",
-      status: "pending",
-    },
-    {
-      serviceName: "Local Moving",
-      serviceCharge: 10,
-      paidWith: "Credit Card",
-      status: "done",
-    },
-    {
-      serviceName: "Local Moving",
-      serviceCharge: 10,
-      paidWith: "Credit Card",
-      status: "on going",
-    },
-  ];
+  const localURL = "http://localhost:5000";
+  const [bookingData, setBookingData] = useState([]);
+
+  useEffect(() => {
+    fetch(`${localURL}/bookings`)
+      .then((res) => res.json())
+      .then((data) => setBookingData(data));
+  }, []);
 
   return (
     <div className="m-5">
@@ -39,22 +27,22 @@ const BookingList = () => {
             </tr>
           </thead>
           <tbody>
-            {serviceData.map((data) => (
+            {bookingData.map((booking) => (
               <tr>
-                <td>{data.serviceName}</td>
-                <td>$ {data.serviceCharge}</td>
-                <td>{data.paidWith}</td>
+                <td>{booking.serviceName}</td>
+                <td>$ {booking.serviceCharge}</td>
+                <td>Credit Card</td>
                 <td
                   style={{
                     color:
-                      data.status === "done"
+                      booking.status === "done"
                         ? "#006400"
-                        : data.status === "on going"
+                        : booking.status === "on going"
                         ? "#9932CC"
                         : "red",
                   }}
                 >
-                  {data.status}
+                  {booking.status}
                 </td>
               </tr>
             ))}
