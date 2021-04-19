@@ -48,8 +48,8 @@ const ManageServices = () => {
           <h4>Manage Services</h4>
         </Alert>
       )}
-      <Table striped bordered hover className="mt-5">
-        <thead>
+      <Table striped bordered hover className="mt-5 text-center">
+        <thead style={{ backgroundColor: "black", color: "white" }}>
           <tr>
             <th>Image</th>
             <th>Name</th>

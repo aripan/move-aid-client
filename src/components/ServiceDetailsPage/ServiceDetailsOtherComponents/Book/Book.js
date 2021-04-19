@@ -6,21 +6,52 @@ import { moveAidContext } from "../../../../App";
 const Book = () => {
   const localURL = "http://localhost:5000";
   const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
-  const [serviceOption, setServiceOption] = useState({});
-  const { serviceId } = useParams();
-  const [name, setName] = useState(loggedInUser.name);
-  const [email, setEmail] = useState(loggedInUser.email);
-  const [serviceName, setServiceName] = useState("");
-  const [weight, setWeight] = useState(1);
-  const [serviceCharge, setServiceCharge] = useState(0);
 
   useEffect(() => {
     const serviceId = sessionStorage.getItem("serviceId");
-    console.log(serviceId);
+
     fetch(`${localURL}/services/${serviceId}`)
       .then((res) => res.json())
       .then((data) => setServiceOption(data));
   }, []);
+
+  const [serviceOption, setServiceOption] = useState({});
+  const [name, setName] = useState(loggedInUser.name);
+  const [email, setEmail] = useState(loggedInUser.email);
+  const [serviceName, setServiceName] = useState("");
+  const [weight, setWeight] = useState(1);
+  const [serviceCharge, setServiceCharge] = useState();
+
+  // const [serviceName, setServiceName] = useState(serviceOption.serviceName);
+  // const [weight, setWeight] = useState(1);
+  // const [serviceCharge, setServiceCharge] = useState(
+  //   serviceOption.serviceCharge
+  // );
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const bookedService = {
+      name,
+      email,
+      serviceName: serviceOption.serviceName
+        ? serviceOption.serviceName
+        : serviceName,
+      serviceCharge: serviceOption.serviceCharge
+        ? Number(weight * serviceOption.serviceCharge)
+        : Number(weight * serviceCharge),
+      status: "pending",
+    };
+
+    fetch(`${localURL}/addNewBooking`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookedService),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
 
   return (
     <div className="m-4">
@@ -31,7 +62,7 @@ const Book = () => {
         <Alert variant="info" className="text-center">
           <h5>Book</h5>
         </Alert>
-        <Form>
+        <Form onSubmit={submitHandler}>
           <Row className="m-auto p-4 ">
             <Col sm={12} md={6}>
               <Form.Group>
@@ -60,12 +91,8 @@ const Book = () => {
                 <Form.Label>Service Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Service name"
-                  value={
-                    serviceOption.serviceName
-                      ? serviceOption.serviceName
-                      : serviceName
-                  }
+                  placeholder=""
+                  value={serviceOption.serviceName}
                   onChange={(e) => {
                     setServiceName(e.target.value);
                   }}
@@ -74,9 +101,10 @@ const Book = () => {
               <Form.Group>
                 <Form.Label>Weight</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Weight"
                   value={weight}
+                  min={1}
                   onChange={(e) => {
                     setWeight(e.target.value);
                   }}
@@ -86,12 +114,8 @@ const Book = () => {
                 <Form.Label>Service Charge (/kg)</Form.Label>
                 <Form.Control
                   type="number"
-                  placeholder="$ Service charge"
-                  value={
-                    serviceOption.serviceCharge
-                      ? weight * serviceOption.serviceCharge
-                      : serviceCharge
-                  }
+                  placeholder=""
+                  value={Number(weight * serviceOption.serviceCharge)}
                   onChange={(e) => {
                     setServiceCharge(e.target.value);
                   }}
@@ -99,11 +123,8 @@ const Book = () => {
               </Form.Group>
             </Col>
             <Col sm={12} md={6}>
-              <p>Pay with</p>
-              <Form.Group>
-                <Form.Check inline type="radio" label="Credit Card" />
-                <Form.Check inline type="radio" label="Paypal" />
-              </Form.Group>
+              <p>Payment: Credit Card only</p>
+
               <Button variant="primary" type="submit" className="mt-4">
                 Submit
               </Button>

@@ -8,35 +8,35 @@ const OrderList2 = () => {
       name: "Sufi Ahmed Hamim",
       email: "sufi@gmail.com",
       service: "Local Moving",
-      payment: "Credit Card",
+      payment: 10,
       value: "pending",
     },
     {
       name: "Sufi Ahmed Hamim",
       email: "sufi@gmail.com",
       service: "Local Moving",
-      payment: "Credit Card",
+      payment: 10,
       value: "done",
     },
     {
       name: "Sufi Ahmed Hamim",
       email: "sufi@gmail.com",
       service: "Local Moving",
-      payment: "Credit Card",
+      payment: 10,
       value: "on going",
     },
     {
       name: "Sufi Ahmed Hamim",
       email: "sufi@gmail.com",
       service: "Local Moving",
-      payment: "Credit Card",
+      payment: 10,
       value: "pending",
     },
     {
       name: "Sufi Ahmed Hamim",
       email: "sufi@gmail.com",
       service: "Local Moving",
-      payment: "Credit Card",
+      payment: 10,
       value: "done",
     },
   ];
@@ -48,17 +48,17 @@ const OrderList2 = () => {
   ];
 
   return (
-    <div className="px-4 m-5">
+    <div className=" m-3">
       <Alert variant="info" className="text-center">
         <h5>Order List</h5>
       </Alert>
-      <Table striped bordered hover>
-        <thead>
+      <Table striped bordered hover className="text-center">
+        <thead style={{ backgroundColor: "black", color: "white" }}>
           <tr>
             <th>Name</th>
             <th>Email ID</th>
             <th>Service</th>
-            <th>Pay With</th>
+            <th>charge</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -68,7 +68,7 @@ const OrderList2 = () => {
               <td>{data.name}</td>
               <td>{data.email}</td>
               <td>{data.service}</td>
-              <td>{data.payment}</td>
+              <td>$ {data.payment}</td>
               <td style={{ width: "200px" }}>
                 <Select defaultValue={options[0]} options={options} />
               </td>

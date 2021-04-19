@@ -1,60 +1,65 @@
 import React from "react";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import PublicIcon from "@material-ui/icons/Public";
-import StoreIcon from "@material-ui/icons/Store";
-import { Container, Button, Col, Row, Alert } from "react-bootstrap";
+import { Container, Alert, Table } from "react-bootstrap";
 
 const BookingList = () => {
   const serviceData = [
     {
-      icon: LocationCityIcon,
       serviceName: "Local Moving",
       serviceCharge: 10,
       paidWith: "Credit Card",
       status: "pending",
     },
     {
-      icon: PublicIcon,
-      title: "Long Distance Moving",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
+      serviceName: "Local Moving",
+      serviceCharge: 10,
+      paidWith: "Credit Card",
+      status: "done",
     },
     {
-      icon: StoreIcon,
-      title: "Storage Unit",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperioresculpa facere natus nemo, fugiat impedit.",
+      serviceName: "Local Moving",
+      serviceCharge: 10,
+      paidWith: "Credit Card",
+      status: "on going",
     },
   ];
 
   return (
-    <div>
+    <div className="m-5">
       <Alert variant="info" className="text-center m-3">
         <h5>Booking List</h5>
       </Alert>
       <Container className="px-3 mt-5">
-        <Row className="gx-3">
-          {serviceData.map((data) => (
-            <Col sm={12} md={4}>
-              <div
-                className="p-4 border bg-light shadow rounded"
-                style={{ height: "100%" }}
-              >
-                <Row className="d-flex justify-content-around align-items-center">
-                  <data.icon style={{ fontSize: "40px" }} />
-                  <Button>pending</Button>
-                </Row>
-                <br />
-                <Row>
-                  <Col>
-                    <h5>{data.title}</h5>
-                    <p>{data.description}</p>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
-          ))}
-        </Row>
+        <Table striped bordered hover className="text-center">
+          <thead style={{ backgroundColor: "black", color: "white" }}>
+            <tr>
+              <th>Service Name</th>
+              <th>Service Charge</th>
+              <th>Paid with</th>
+              <th>status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {serviceData.map((data) => (
+              <tr>
+                <td>{data.serviceName}</td>
+                <td>$ {data.serviceCharge}</td>
+                <td>{data.paidWith}</td>
+                <td
+                  style={{
+                    color:
+                      data.status === "done"
+                        ? "#006400"
+                        : data.status === "on going"
+                        ? "#9932CC"
+                        : "red",
+                  }}
+                >
+                  {data.status}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Container>
     </div>
   );
