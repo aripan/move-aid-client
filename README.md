@@ -16,7 +16,7 @@ A full-stack web application is built for an eCommerce website using the (MERN) 
 
 ## Hosted Version
 
-The latest version is deployed and hosted on firebase [Here](https://grocery-wish.web.app/)
+The latest version is deployed and hosted on firebase [Here](https://move-aid.web.app/)
 
 ## Usage
 
