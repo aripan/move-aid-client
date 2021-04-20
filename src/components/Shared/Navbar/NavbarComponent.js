@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { HashLink } from "react-router-hash-link";
+// import { HashLink } from "react-router-hash-link";
 import { moveAidContext } from "../../../App";
 import { logout } from "../../LoginPage/LoginPageOtherComponents/LoginManager/LoginManager";
 
 const NavbarComponent = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -19,7 +20,7 @@ const NavbarComponent = () => {
       const admin = {
         email: loggedInUser.email,
       };
-      fetch(`${localURL}/isAdmin`, {
+      fetch(`${hostedURL}/isAdmin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

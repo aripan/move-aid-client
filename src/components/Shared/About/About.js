@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import pack from "../../../images/package.png";
 import bgWall from "../../../images/bg-wall.jpg";
 

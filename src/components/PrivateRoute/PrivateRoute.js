@@ -1,17 +1,9 @@
 import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { moveAidContext } from "../../App";
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
+  const { loggedInUser } = useContext(moveAidContext);
   return (
     <Route
       {...rest}

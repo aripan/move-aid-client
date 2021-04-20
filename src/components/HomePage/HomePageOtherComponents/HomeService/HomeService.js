@@ -3,14 +3,15 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const HomeService = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [serviceOptions, setServiceOptions] = useState([]);
 
   useEffect(() => {
-    fetch(`${localURL}/services`)
+    fetch(`${hostedURL}/services`)
       .then((res) => res.json())
       .then((data) => setServiceOptions(data));
-  }, [localURL]);
+  }, [hostedURL]);
 
   const handleBookNow = (id) => {
     sessionStorage.setItem("serviceId", id);

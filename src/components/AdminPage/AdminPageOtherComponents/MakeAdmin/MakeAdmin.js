@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const MakeAdmin = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -15,7 +16,7 @@ const MakeAdmin = () => {
       admin: true,
     };
 
-    fetch(`${localURL}/addNewAdminUser`, {
+    fetch(`${hostedURL}/addNewAdminUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

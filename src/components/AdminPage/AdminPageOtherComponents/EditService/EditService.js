@@ -3,7 +3,8 @@ import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
 
 const EditService = ({ editableService }) => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [serviceName, setServiceName] = useState(editableService.serviceName);
   const [serviceCharge, setServiceCharge] = useState(
     editableService.serviceCharge
@@ -33,7 +34,7 @@ const EditService = ({ editableService }) => {
 
     console.log(editedService);
 
-    fetch(`${localURL}/updateService/${editableService._id}`, {
+    fetch(`${hostedURL}/updateService/${editableService._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

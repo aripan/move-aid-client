@@ -1,16 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useParams } from "react-router";
 import { moveAidContext } from "../../../../App";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  Elements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51HQ9z4LBLwppKTk33CV1lcCDgsd6VLmn3xw10gTDr9onxBJsJw89U4pMPbtLlL0KT6nst01NMHZXvhMOH5Pw9u9r00HlSAdvqZ"
+);
 
 const Book = () => {
-  const localURL = "http://localhost:5000";
-  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
+  const { loggedInUser } = useContext(moveAidContext);
 
   useEffect(() => {
     const serviceId = sessionStorage.getItem("serviceId");
 
-    fetch(`${localURL}/services/${serviceId}`)
+    fetch(`${hostedURL}/services/${serviceId}`)
       .then((res) => res.json())
       .then((data) => setServiceOption(data));
   }, []);
@@ -36,7 +47,7 @@ const Book = () => {
       status: "pending",
     };
 
-    fetch(`${localURL}/addNewBooking`, {
+    fetch(`${hostedURL}/addNewBooking`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -118,9 +129,25 @@ const Book = () => {
             </Col>
             <Col sm={12} md={6}>
               <p>Payment: Credit Card only</p>
+              <Elements stripe={stripePromise}>
+                <Form.Group>
+                  <Form.Label>Card Number</Form.Label>
+
+                  <CardNumberElement className="form-control" />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Expiration Date</Form.Label>
+
+                  <CardExpiryElement className="form-control" />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>CVC</Form.Label>
+                  <CardCvcElement className="form-control" />
+                </Form.Group>
+              </Elements>
 
               <Button variant="primary" type="submit" className="mt-4">
-                Submit
+                Pay
               </Button>
             </Col>
           </Row>

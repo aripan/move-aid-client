@@ -3,7 +3,8 @@ import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
 
 const AddService = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [serviceName, setServiceName] = useState("");
   const [serviceCharge, setServiceCharge] = useState(null);
   const [description, setDescription] = useState("");
@@ -29,7 +30,7 @@ const AddService = () => {
       updateTime: new Date(),
     };
 
-    fetch(`${localURL}/addNewServices`, {
+    fetch(`${hostedURL}/addNewServices`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

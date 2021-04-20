@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Container, Alert, Table } from "react-bootstrap";
 
 const BookingList = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [bookingData, setBookingData] = useState([]);
 
   useEffect(() => {
-    fetch(`${localURL}/bookings`)
+    fetch(`${hostedURL}/bookings`)
       .then((res) => res.json())
       .then((data) => setBookingData(data));
   }, []);

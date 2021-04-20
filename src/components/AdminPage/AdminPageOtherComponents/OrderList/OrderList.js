@@ -3,11 +3,12 @@ import { Alert, Table } from "react-bootstrap";
 import Select from "react-select";
 
 const OrderList = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [bookingData, setBookingData] = useState([]);
 
   useEffect(() => {
-    fetch(`${localURL}/bookings`)
+    fetch(`${hostedURL}/bookings`)
       .then((res) => res.json())
       .then((data) => setBookingData(data));
   }, []);
@@ -17,7 +18,7 @@ const OrderList = () => {
 
     console.log(newStatus, id);
 
-    fetch(`${localURL}/updateBookings/${id}`, {
+    fetch(`${hostedURL}/updateBookings/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

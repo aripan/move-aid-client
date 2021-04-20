@@ -102,7 +102,7 @@ const menuItems2 = [
 ];
 
 const DrawerComponent = ({ children, backToHome, setBackToHome }) => {
-  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
+  const { loggedInUser } = useContext(moveAidContext);
   const [menuItems, setMenuItems] = useState(menuItems1);
   const history = useHistory();
   const location = useLocation();

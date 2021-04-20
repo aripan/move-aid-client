@@ -3,7 +3,8 @@ import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
 
 const ReviewCard = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(null);
@@ -31,7 +32,7 @@ const ReviewCard = () => {
       description,
     };
 
-    fetch(`${localURL}/addNewReview`, {
+    fetch(`${hostedURL}/addNewReview`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

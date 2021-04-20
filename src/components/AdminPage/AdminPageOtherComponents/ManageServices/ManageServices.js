@@ -5,27 +5,28 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import EditService from "../EditService/EditService";
 
 const ManageServices = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [serviceOptions, setServiceOptions] = useState([]);
   const [editableService, setEditableService] = useState({});
 
   useEffect(() => {
-    fetch(`${localURL}/services`)
+    fetch(`${hostedURL}/services`)
       .then((res) => res.json())
       .then((data) => setServiceOptions(data));
-  }, [localURL, setServiceOptions]);
+  }, [hostedURL, setServiceOptions]);
 
   const handleEditOption = (id) => {
     const findServiceToEdit = serviceOptions.find((pd) => pd._id === id);
     setEditableService(findServiceToEdit);
 
-    fetch(`${localURL}/services`)
+    fetch(`${hostedURL}/services`)
       .then((res) => res.json())
       .then((data) => setServiceOptions(data));
   };
 
   const handleDeleteOption = (id) => {
-    const deleteURL = `${localURL}/deleteService/${id}`;
+    const deleteURL = `${hostedURL}/deleteService/${id}`;
     fetch(deleteURL, {
       method: "DELETE",
       headers: {

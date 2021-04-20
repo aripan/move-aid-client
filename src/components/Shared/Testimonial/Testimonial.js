@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 const Testimonial = () => {
-  const localURL = "http://localhost:5000";
+  const hostedURL = "https://infinite-mountain-73117.herokuapp.com";
+  // const localURL = "http://localhost:5000";
   const [allReviews, setAllReviews] = useState([]);
 
   useEffect(() => {
-    fetch(`${localURL}/reviews`)
+    fetch(`${hostedURL}/reviews`)
       .then((res) => res.json())
       .then((data) => setAllReviews(data));
-  }, [localURL]);
+  }, [hostedURL]);
 
   return (
     <div className="mt-5 p-3">
