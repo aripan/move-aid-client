@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { HashLink } from "react-router-hash-link";
@@ -6,12 +6,32 @@ import { moveAidContext } from "../../../App";
 import { logout } from "../../LoginPage/LoginPageOtherComponents/LoginManager/LoginManager";
 
 const NavbarComponent = () => {
+  const localURL = "http://localhost:5000";
   const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
-  const [adminValue, setAdminValue] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogout = () => {
     setLoggedInUser(logout());
   };
+
+  useEffect(() => {
+    if (loggedInUser.email) {
+      const admin = {
+        email: loggedInUser.email,
+      };
+      fetch(`${localURL}/isAdmin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(admin),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setIsAdmin(data.admin);
+        });
+    }
+  }, [loggedInUser.email]);
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <LinkContainer to="/">
@@ -39,16 +59,16 @@ const NavbarComponent = () => {
           <LinkContainer to="/serviceDetails">
             <Nav.Link className="mr-2">Dashboard</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/admin">
-            <Nav.Link className="mr-2">Admin</Nav.Link>
-          </LinkContainer>
+          {isAdmin && (
+            <LinkContainer to="/admin">
+              <Nav.Link className="mr-2">Admin</Nav.Link>
+            </LinkContainer>
+          )}
 
           {loggedInUser.email ? (
             <NavDropdown
               title={
-                adminValue
-                  ? `${loggedInUser.name}(Admin)`
-                  : `${loggedInUser.name}`
+                isAdmin ? `${loggedInUser.name}(Admin)` : `${loggedInUser.name}`
               }
               id="basic-nav-dropdown"
             >

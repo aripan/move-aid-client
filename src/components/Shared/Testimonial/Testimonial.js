@@ -13,7 +13,7 @@ const Testimonial = () => {
   }, [localURL]);
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 p-3">
       <Container className="m-auto">
         <Row>
           <div className="d-flex justify-content-between">
@@ -43,21 +43,12 @@ const Testimonial = () => {
                   <Col>
                     <Row>
                       <h4>{review.name}</h4>
-                      <h6>Service:{review.serviceName}</h6>
                     </Row>
-                    <Row>{review.rate}</Row>
-
-                    {Array(review.rate)
-                      .fill()
-                      .map((_, i) => (
-                        <span>
-                          <StarBorderIcon />
-                        </span>
-                      ))}
                   </Col>
                 </Row>
-                <Row className="mt-4 p-2 text-justify">
-                  <p>{review.description}</p>
+                <Row className="mt-4 p-2 ">
+                  <h6>Service:{review.serviceName}</h6>
+                  <p className="text-justify">{review.description}</p>
                 </Row>
               </div>
             </Col>

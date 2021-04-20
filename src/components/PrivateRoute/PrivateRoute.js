@@ -11,7 +11,7 @@ import {
 import { moveAidContext } from "../../App";
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const [loggedInUser, setLoggedInUser] = useContext(moveAidContext);
+  const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
   return (
     <Route
       {...rest}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
 import { moveAidContext } from "../../../App";
@@ -8,6 +8,7 @@ import { signInWithGoogle } from "../LoginPageOtherComponents/LoginManager/Login
 const LoginScreen = () => {
   const localURL = "http://localhost:5000";
   const { loggedInUser, setLoggedInUser } = useContext(moveAidContext);
+  const [isAdmin, setIsAdmin] = useState(false);
   let history = useHistory();
   let location = useLocation();
 
@@ -16,8 +17,6 @@ const LoginScreen = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle().then((res) => {
       setLoggedInUser(res);
-
-      history.replace(from);
     });
   };
 

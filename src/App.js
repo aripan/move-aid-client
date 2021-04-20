@@ -37,18 +37,18 @@ function App() {
           {/* <Route path="/services">
             <ServiceScreen></ServiceScreen>
           </Route> */}
-          {/* <PrivateRoute path="/serviceDetails">
+          <PrivateRoute path="/serviceDetails">
             <ServiceDetailsPageScreen></ServiceDetailsPageScreen>
           </PrivateRoute>
           <PrivateRoute path="/admin">
             <AdminScreen></AdminScreen>
-          </PrivateRoute> */}
-          <Route path="/serviceDetails">
+          </PrivateRoute>
+          {/* <Route path="/serviceDetails">
             <ServiceDetailsPageScreen></ServiceDetailsPageScreen>
           </Route>
           <Route path="/admin">
             <AdminScreen></AdminScreen>
-          </Route>
+          </Route> */}
 
           <Route path="/login">
             <LoginScreen></LoginScreen>
